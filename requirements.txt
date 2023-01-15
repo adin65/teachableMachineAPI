@@ -5,6 +5,7 @@ certifi
 chardet
 click
 Flask
+Gunicorn
 flatbuffers
 gast
 google-auth
