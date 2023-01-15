@@ -6,7 +6,7 @@ import tensorflow as tf
 
 # Import Flask API
 from flask import Flask, request
-server = Flask(__name__)
+app = Flask(__name__)
 # Load the model
 model = tensorflow.keras.models.load_model('keras_model.h5')
 
@@ -25,7 +25,7 @@ def read_tensor_from_image_url(url,
 
     return normalized
 
-@server.route("/prediction", methods=['POST'])
+@app.route("/prediction", methods=['POST'])
 def keras():
     #Get all the values in your POST request. 
     apikey = request.args.get('apikey')
