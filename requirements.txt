@@ -5,6 +5,7 @@ certifi
 chardet
 click
 Flask
+flask-cors
 Gunicorn
 flatbuffers
 gast
