@@ -10,6 +10,12 @@ app = Flask(__name__)
 # Load the model
 model = tensorflow.keras.models.load_model('keras_model.h5')
 
+# Load labels
+labels = []
+labels_txt = open('labels.txt','r')
+for line in labels_txt:
+    labels.append(line.strip().split())
+labels_txt.close()
 
 def read_tensor_from_image_url(url,
                                input_height=224,
@@ -30,6 +36,7 @@ def keras():
     #Get all the values in your POST request. 
     apikey = request.args.get('apikey')
     image = request.args.get('url')
+    threshold = request.args.get("threshold")
     #Check for API key access  --> Very makeshift manual solution. Totally not fit for production levels. 
     #Change this if you're using this method.
     if apikey == '123-456-7890-0987-654321': 
@@ -45,8 +52,12 @@ def keras():
 
         # run the inference
         prediction = model.predict(data)
+        if prediction.argmax() >= threshold:
+            Id, recognized_object = labels[prediction.argmax()] # the label that corresponds to highest prediction
+        else:
+            recognized_object = "unknown"
         #Return the prediction and a 200 status
-        return prediction, 200
+        return recognized_object, 200
 
     else:
         #If the apikey is not the same, then return a 400 status indicating an error.
