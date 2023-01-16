@@ -34,12 +34,12 @@ def read_tensor_from_image_url(url,
 
     return normalized
 
-@app.route("/prediction", methods=['POST'])
+@app.route("/prediction/", methods=['POST'])
 def keras():
     #Get all the values in your POST request. 
     apikey = request.args.get('apikey')
     image = request.args.get('url')
-    threshold = request.args.get("threshold")
+    threshold = int(request.args.get("threshold"))
     #Check for API key access  --> Very makeshift manual solution. Totally not fit for production levels. 
     #Change this if you're using this method.
     if apikey == '123-456-7890-0987-654321': 
@@ -66,8 +66,8 @@ def keras():
         #If the apikey is not the same, then return a 400 status indicating an error.
         return "Not valid apikey", 400 
     
-# if __name__ == "__main__":
-#     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+if __name__ == "__main__":
+     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 # # Disable scientific notation for clarity
 # np.set_printoptions(suppress=True)
 
