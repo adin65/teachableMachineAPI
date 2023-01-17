@@ -8,6 +8,7 @@ import os
 # Import Flask API
 from flask import Flask, request
 from flask_cors import CORS
+from waitress import serve
 
 app = Flask(__name__)
 CORS(app)
@@ -35,7 +36,7 @@ def read_tensor_from_image_url(url,
 
     return normalized
 
-@app.route("/prediction/", methods=['POST'])
+@app.route("/prediction/", methods=['POST','GET'])
 def keras():
     #Get all the values in your POST request. 
     apikey = request.args.get('apikey')
@@ -56,7 +57,7 @@ def keras():
 
         # run the inference
         prediction = model.predict(data)
-        if prediction.argmax() >= threshold:
+        if prediction.argmax() >= threshold/100:
             Id, recognized_object = labels[prediction.argmax()] # the label that corresponds to highest prediction
         else:
             recognized_object = "unknown"
@@ -72,7 +73,8 @@ def hello_world():
     return 'Hello, World!', 200
 
 if __name__ == "__main__":
-     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+     #app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+     serve(app, host='0.0.0.0', port=5000, url_scheme='https')
 # # Disable scientific notation for clarity
 # np.set_printoptions(suppress=True)
 
