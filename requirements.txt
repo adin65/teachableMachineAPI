@@ -40,5 +40,6 @@ tensorflow-estimator
 termcolor
 typing-extensions
 urllib3
+waitress
 Werkzeug
 wrapt

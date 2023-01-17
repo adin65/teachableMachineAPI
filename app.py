@@ -12,7 +12,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 # Load the model
-model = tensorflow.keras.models.load_model('keras_model.h5')
+model = tensorflow.keras.models.load_model('keras_model.h5',compile=False)
 
 # Load labels
 labels = []
@@ -71,8 +71,8 @@ def keras():
 def hello_world():
     return 'Hello, World!', 200
 
-#if __name__ == "__main__":
-#     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+if __name__ == "__main__":
+     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 # # Disable scientific notation for clarity
 # np.set_printoptions(suppress=True)
 
