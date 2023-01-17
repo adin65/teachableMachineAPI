@@ -3,6 +3,7 @@ from PIL import Image, ImageOps
 import numpy as np
 import requests
 import tensorflow as tf
+import os
 
 # Import Flask API
 from flask import Flask, request

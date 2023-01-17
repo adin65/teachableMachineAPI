@@ -4,6 +4,8 @@ cachetools
 certifi
 chardet
 click
+docker
+docker-compose
 Flask
 flask-cors
 Gunicorn
